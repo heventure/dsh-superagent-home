@@ -1,0 +1,4 @@
+rawpy>=0.24
+pillow>=11
+numpy>=2
+pillow-heif>=1.0
