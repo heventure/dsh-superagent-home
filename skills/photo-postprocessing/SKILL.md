@@ -28,7 +28,7 @@ PHOTO="$HOME/.local/photo-venv/bin/python $HOME/.agents/skills/photo-postprocess
 1. 原片只读：绝不移动、重命名、删除 DCIM 里的文件；输出只写到 `postprocessed/`。
 2. 删片必须由用户确认：先出报告和接触表，用户点头后才谈删除；本工具不提供删除命令。
 3. 每个输出 JPG 旁边写同名 `.json` sidecar，记录调色参数和来源文件，便于复现。
-4. 默认导出前剥离 GPS，保留相机制造商和镜头信息；用户要求时用 `--keep-gps`。
+4. 导出默认剥离 GPS，保留机身/镜头/拍摄时间（EXIF）；用户要求保留定位时加 `--keep-gps`。
 5. 大目录批量任务用后台作业跑，不要前台阻塞；单张 RAW 约 8 秒。
 
 ## 1. 清点
@@ -74,7 +74,7 @@ $PHOTO develop <文件.ARW> --out <输出.jpg> \
 | `--crop L T R B` | 0..1 | 按比例裁剪 |
 | `--aspect` | 如 1.5 | 居中裁成 3:2 |
 | `--rotate` / `--flip` | 度 / h、v | 旋转、翻转 |
-| `--spot x,y,r[,sx,sy]` | 像素 | 仿制图章式修瑕，可重复；省略源点则取右侧 |
+| `--spot x,y,r[,sx,sy]` | 像素 | 仿制图章式修瑕，坐标基于原图（旋转裁剪前），可重复；省略源点则取右侧 |
 | `--long-edge` / `--quality` | 默认 2048 / 92 | 输出长边与 JPEG 质量 |
 
 - 输出默认落在 `postprocessed/<今天日期>/<原名>_edit.jpg`，加 `--suffix` 改后缀。

@@ -19,6 +19,8 @@ import hashlib
 import json
 import math
 import os
+import shutil
+import subprocess
 import sys
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -46,6 +48,7 @@ HEIF_EXT = {".hif", ".heic", ".heif"}
 JPEG_EXT = {".jpg", ".jpeg"}
 SUPPORTED = RAW_EXT | HEIF_EXT | JPEG_EXT
 SKIP_DIRS = {"@eaDir", "#recycle", "reject", "exports", "processed"}
+GPS_IFD_TAG = 34853
 
 
 # --------------------------------------------------------------------------- #
@@ -76,6 +79,32 @@ def iter_images(root: Path, folders: list[str] | None = None):
 # --------------------------------------------------------------------------- #
 # image loading
 # --------------------------------------------------------------------------- #
+
+
+
+def _exiftool_tags(path: Path) -> dict[int, object]:
+    """Make/Model/Lens/capture time for exports, read with exiftool when present."""
+    if shutil.which("exiftool") is None:
+        return {}
+    try:
+        proc = subprocess.run(
+            ["exiftool", "-j", "-Make", "-Model", "-LensModel", "-DateTimeOriginal", str(path)],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        data = json.loads(proc.stdout or "[]")
+    except Exception:
+        return {}
+    if not data:
+        return {}
+    row = data[0]
+    tags: dict[int, object] = {}
+    for key, tag in (("Make", 271), ("Model", 272), ("LensModel", 42036), ("DateTimeOriginal", 36867)):
+        value = row.get(key)
+        if value:
+            tags[tag] = str(value)
+    return tags
 
 
 def _raw_thumb(path: Path) -> Image.Image | None:
@@ -132,12 +161,14 @@ def load_rgb(path: Path) -> tuple[np.ndarray, dict]:
                 output_color=rawpy.ColorSpace.sRGB,
             )
         arr = arr16.astype(np.float32) / 65535.0
+        meta["exif"] = _exiftool_tags(path)
     elif ext in HEIF_EXT or ext in JPEG_EXT:
         if ext in HEIF_EXT and pillow_heif is None:
             raise SystemExit("pillow-heif is required to read HEIF files")
         with Image.open(path) as img:
             meta["size"] = list(img.size)
-            meta["embedded_tags"] = {k: str(v) for k, v in img.getexif().items() if k in (271, 272, 305, 34853)}
+            exif = img.getexif()
+            meta["exif"] = {k: v for k, v in exif.items() if k in (271, 272, 305, 36867, GPS_IFD_TAG)}
             arr = np.asarray(img.convert("RGB"), dtype=np.float32) / 255.0
     else:
         raise SystemExit(f"unsupported input: {path}")
@@ -489,6 +520,8 @@ def save_jpeg(img: Image.Image, dst: Path, quality: int, long_edge: int | None, 
     if keep_meta:
         exif = Image.Exif()
         for tag, value in keep_meta.items():
+            if strip_gps and int(tag) == GPS_IFD_TAG:
+                continue
             try:
                 exif[int(tag)] = value
             except Exception:
@@ -596,9 +629,9 @@ def build_pipeline(args) -> tuple[np.ndarray, dict]:
         "flip": args.flip,
         "spots": args.spot,
     }
-    rgb = rotate_flip(rgb, args.rotate, args.flip)
     if args.spot:
         rgb = remove_spots(rgb, parse_spots(args.spot))
+    rgb = rotate_flip(rgb, args.rotate, args.flip)
     rgb = crop_aspect(rgb, args.aspect, args.crop)
     rgb = apply_exposure_wb(rgb, args.ev, args.warmth, args.tint)
     rgb = apply_tone(rgb, args.shadows, args.highlights, args.contrast)
@@ -633,7 +666,7 @@ def cmd_develop(args) -> int:
         dst = (Path(args.out_dir) if args.out_dir else DEFAULT_OUT / datetime.now().strftime("%Y-%m-%d")) / (stem + ".jpg")
     if dst.exists() and not args.force:
         raise SystemExit(f"refusing to overwrite {dst} (use --force)")
-    save_jpeg(img, dst, args.quality, args.long_edge, not args.keep_gps, meta.get("embedded_tags"))
+    save_jpeg(img, dst, args.quality, args.long_edge, not args.keep_gps, meta.get("exif"))
     sidecar = dst.with_suffix(".json")
     sidecar.write_text(json.dumps(meta, ensure_ascii=False, indent=2, default=str))
     print(f"wrote {dst} {img.width}x{img.height} -> {Image.open(dst).size}")
