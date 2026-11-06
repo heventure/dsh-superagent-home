@@ -69,6 +69,7 @@ $PHOTO develop <文件.ARW> --out <输出.jpg> \
 | `--tint` | -100..100 | 正值偏品红，负值偏绿 |
 | `--shadows` / `--highlights` | -1..1 | 提暗部 / 压高光（负值恢复高光） |
 | `--contrast` | -1..1 | S 曲线 |
+| `--lift` | 0..0.25 | 提黑位，做哑光胶片底 |
 | `--saturation` / `--vibrance` | 1.0 基准 / -1..1 | 饱和度 / 自然饱和度 |
 | `--clarity` / `--sharpen` / `--denoise` | 0..1 / 0..3 / 0..1 | 局部对比、锐化、降噪 |
 | `--crop L T R B` | 0..1 | 按比例裁剪 |

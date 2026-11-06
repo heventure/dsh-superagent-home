@@ -221,6 +221,14 @@ def apply_exposure_wb(rgb: np.ndarray, ev: float = 0.0, warmth: float = 0.0, tin
     return linear_to_srgb(lin)
 
 
+def apply_lift(rgb: np.ndarray, lift: float = 0.0) -> np.ndarray:
+    """Raise the black point for a matte, film-like base."""
+    if not lift:
+        return rgb
+    amount = float(np.clip(lift, 0.0, 0.25))
+    return np.clip(rgb * (1.0 - amount) + amount * 0.55, 0.0, 1.0).astype(np.float32)
+
+
 def apply_tone(rgb: np.ndarray, shadows: float = 0.0, highlights: float = 0.0, contrast: float = 0.0) -> np.ndarray:
     """Shadows lift, highlight recovery and an S-curve, all in gamma space."""
     if shadows == 0.0 and highlights == 0.0 and contrast == 0.0:
@@ -635,6 +643,7 @@ def build_pipeline(args) -> tuple[np.ndarray, dict]:
         "shadows": args.shadows,
         "highlights": args.highlights,
         "contrast": args.contrast,
+        "lift": args.lift,
         "saturation": args.saturation,
         "vibrance": args.vibrance,
         "clarity": args.clarity,
@@ -652,6 +661,7 @@ def build_pipeline(args) -> tuple[np.ndarray, dict]:
     rgb = crop_aspect(rgb, args.aspect, args.crop)
     rgb = apply_exposure_wb(rgb, args.ev, args.warmth, args.tint)
     rgb = apply_tone(rgb, args.shadows, args.highlights, args.contrast)
+    rgb = apply_lift(rgb, args.lift)
     rgb = apply_saturation(rgb, args.saturation, args.vibrance)
     rgb = apply_detail(rgb, args.clarity, args.sharpen, args.denoise)
     return rgb, meta
@@ -777,6 +787,7 @@ def main(argv: list[str]) -> int:
             p.add_argument("--shadows", type=float, default=0.0, help="-1..1")
             p.add_argument("--highlights", type=float, default=0.0, help="-1..1, negative recovers")
             p.add_argument("--contrast", type=float, default=0.0, help="-1..1")
+            p.add_argument("--lift", type=float, default=0.0, help="0..0.25 matte black lift")
             p.add_argument("--saturation", type=float, default=1.0)
             p.add_argument("--vibrance", type=float, default=0.0)
             p.add_argument("--clarity", type=float, default=0.0)
