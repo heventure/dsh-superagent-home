@@ -27,7 +27,7 @@ from datetime import datetime
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
 try:  # HEIF support is optional at import time so RAW-only use still works
     import pillow_heif
@@ -118,7 +118,7 @@ def _raw_thumb(path: Path) -> Image.Image | None:
         if thumb.format == rawpy.ThumbFormat.JPEG:
             from io import BytesIO
 
-            return Image.open(BytesIO(thumb.data)).convert("RGB")
+            return ImageOps.exif_transpose(Image.open(BytesIO(thumb.data))).convert("RGB")
         if thumb.format == rawpy.ThumbFormat.BITMAP:
             return Image.fromarray(thumb.data).convert("RGB")
     return None
@@ -137,7 +137,7 @@ def load_preview(path: Path, long_edge: int = 1600) -> Image.Image:
                 arr = raw.postprocess(use_camera_wb=True, half_size=True, output_bps=8)
             img = Image.fromarray(arr)
     else:
-        img = Image.open(path)
+        img = ImageOps.exif_transpose(Image.open(path))
         img = img.convert("RGB")
     img.thumbnail((long_edge, long_edge), Image.LANCZOS)
     return img
@@ -161,11 +161,20 @@ def load_rgb(path: Path) -> tuple[np.ndarray, dict]:
                 output_color=rawpy.ColorSpace.sRGB,
             )
         arr = arr16.astype(np.float32) / 65535.0
+        # rawpy does not rotate; apply the sensor flip so grading happens upright
+        flip = int(raw.sizes.flip)
+        if flip == 5:
+            arr = np.rot90(arr, 1)
+        elif flip == 6:
+            arr = np.rot90(arr, 3)
+        elif flip == 3:
+            arr = np.rot90(arr, 2)
         meta["exif"] = _exiftool_tags(path)
     elif ext in HEIF_EXT or ext in JPEG_EXT:
         if ext in HEIF_EXT and pillow_heif is None:
             raise SystemExit("pillow-heif is required to read HEIF files")
         with Image.open(path) as img:
+            img = ImageOps.exif_transpose(img)
             meta["size"] = list(img.size)
             exif = img.getexif()
             meta["exif"] = {k: v for k, v in exif.items() if k in (271, 272, 305, 36867, GPS_IFD_TAG)}
