@@ -409,6 +409,10 @@ def score_image(path: Path, preview_edge: int = 1120, thumb_path: Path | None = 
     mean = float(gray.mean())
     p_black = float((gray < 0.02).mean())
     p_white = float((gray > 0.98).mean())
+    h, w = gray.shape
+    centre = gray[int(h * 0.25) : int(h * 0.75), int(w * 0.25) : int(w * 0.75)]
+    centre_white = float((centre > 0.98).mean()) if centre.size else p_white
+    centre_black = float((centre < 0.02).mean()) if centre.size else p_black
     return {
         "file": str(path),
         "folder": path.parent.name,
@@ -418,6 +422,8 @@ def score_image(path: Path, preview_edge: int = 1120, thumb_path: Path | None = 
         "mean": round(mean, 4),
         "clip_black": round(p_black, 4),
         "clip_white": round(p_white, 4),
+        "centre_white": round(centre_white, 4),
+        "centre_black": round(centre_black, 4),
         "dhash": _dhash(img),
         "flags": [],
     }
@@ -476,9 +482,11 @@ def cull(
             flags.append("dark")
         if rec["mean"] > 0.92:
             flags.append("bright")
-        if rec["clip_white"] > 0.08:
+        # judge exposure on the centre of the frame: a bright sky or a dark
+        # background alone must not reject an otherwise usable photo
+        if rec["centre_white"] > 0.10 or rec["clip_white"] > 0.30:
             flags.append("blown")
-        if rec["clip_black"] > 0.35:
+        if rec["centre_black"] > 0.40:
             flags.append("crushed")
         for prev in ok[:i]:
             if (
