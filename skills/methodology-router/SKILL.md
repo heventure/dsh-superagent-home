@@ -1,6 +1,6 @@
 ---
 name: methodology-router
-description: Use before execution when a task needs a method choice. Triggers include complex, unfamiliar, or cross-domain work; the user gives a goal but no method; several methods could plausibly apply; a named theory, framework, or metric is being used and its basis is unverified; or an estimate, forecast, or plan rests on unchecked assumptions. Skip when the task is simple and explicit, or the user already named a suitable method — use it directly and do not reselect. 适用于需要先选方法再执行的任务：复杂、陌生或跨领域的任务；用户只给目标没给方法；多种方法都可能适用；引用了未经核实的理论、框架或指标；预测、估算、排期依赖未经验证的假设。简单明确的任务、或用户已指定合适方法时不要使用。
+description: Use before execution when a task needs a method choice. Triggers include complex, unfamiliar, or cross-domain work; the user gives a goal but no method; several methods could plausibly apply; a named theory, framework, or metric is being used and its basis is unverified; the deliverable is an estimate, forecast, or schedule commitment whose inputs are unchecked; or a capacity, latency, or cost sizing judgement whose inputs are not yet known. Skip when the task is simple and explicit, when the user already named a suitable method (use it and point out any broken precondition instead of reselecting), or when the user asked for one well-specified calculation or test — say what its limits are in the answer instead of routing. 适用于需要先选方法再执行的任务：复杂、陌生或跨领域的任务；用户只给目标没给方法；多种方法都可能适用；引用了未经核实的理论、框架或指标；或交付物是估算、预测、排期承诺而输入未经验证，或是显存、延迟、成本这类容量判断而输入未知。简单明确的任务、用户已指定合适方法（直接用，指出失效的前提，不重选）、或用户只要求一个明确的计算或检验（在答案里说明局限即可）时不要使用。
 ---
 
 # Methodology Router
@@ -13,13 +13,15 @@ Use this skill when any of these hold:
 - The user states a goal but not a method.
 - Several methods could plausibly apply.
 - A named theory, framework, or metric is being used and its basis is unverified.
-- An estimate, forecast, or plan rests on assumptions that have not been checked.
+- The deliverable is an estimate, forecast, or schedule commitment whose inputs are unchecked.
+- The deliverable is a capacity, latency, or cost sizing judgement whose inputs are not yet known.
 - A wrong assumption would be costly.
 
 ## When to skip or minimize
 
 - The task is simple and explicit: just do it.
-- The user already named a suitable method: use it directly and do not reselect. Flag briefly only if the method is clearly unsuitable, and say why.
+- The user named a suitable method: use it, and if one of its preconditions does not hold, say which and adjust the result — do not reselect a different method.
+- The user asked for one well-specified calculation: do it, and state its limits in the answer.
 - Further analysis would not change the action: act.
 
 ## Workflow
@@ -33,11 +35,29 @@ Work through these steps internally. Show the user only the parts that affect th
 5. **Check.** Was the method right? Do its preconditions hold? Does the result meet the success criteria? Is there another explanation?
 6. **Teach only as needed.** Explain the minimum a user needs to judge the key decisions. Skip what they already understand.
 
+## Diagnosing a performance problem
+
+Do not start from a list of optimizations. Use this order, and say which step the current evidence supports:
+
+1. **Tracing first — where does the time go?** Break the end-to-end path into spans (model calls, retrieval, each tool, memory, queueing) and compare p50 and p95. This answers "which part is slow"; it cannot explain why a specific function is slow. Move on only when a span dominates or the tail has a visible shape.
+2. **Profiling second — why is that part slow?** Profile the code or runtime of the span that tracing already identified: CPU, allocation, lock waits, serialization. Profiling answers "why", given a known hotspot. Profiling without a located hotspot mostly produces noise.
+3. **Ablation last — does this component earn its place?** Removing or disabling a component answers "what does it contribute", not "what is slow". It needs fixed inputs, repeated runs, and a quality metric, because a component can speed things up while making results worse.
+
+State the evidence that would justify the next step. Never assert a bottleneck, attribute time, or promise a speed-up without measurement.
+
+## Capacity and hardware claims
+
+- **Name the unknowns first.** Hardware, model, backend, quantization, context length, concurrency, and workload shape decide the answer; if any is missing, say so and make the answer conditional.
+- **Budget in three parts.** Weights, KV cache (which grows with context length times parallel slots), and runtime/workspace overhead. Compare their sum with the measured peak, not with the nominal card size.
+- **Measure, do not infer.** A repeatable benchmark needs a fixed prompt set, several repetitions, and at least TTFT, prefill, decode, peak memory, and a quality regression check. Change one variable per run.
+- **No unmeasured numbers.** Do not give speed figures, "best" configurations, or hardware verdicts for a machine you have not measured. If you must illustrate, label the range as an estimate and give its basis.
+
 ## Estimates and predictions
 
-- An estimate is only as good as its inputs. Before computing, state what the inputs would have to be: historical data, a reference class, the dependency structure, and ranges with a stated basis.
-- If those inputs are missing or too thin, say plainly that the result cannot support a credible probability claim. A precise-looking number is still a guess.
-- If you compute anyway, label it a scenario under stated assumptions, show how the result moves when those assumptions change, and never use the number of iterations or decimal places to imply accuracy.
+- An estimate is only as good as its inputs. Before computing, state what the inputs would have to be: historical estimates against actuals, a reference class, the dependency and parallelism structure, and ranges with a stated basis.
+- If those inputs are missing or too thin, lead with that: the result cannot support a credible probability claim or a schedule commitment. The next step is collecting inputs, not picking a number.
+- A demonstration computation may follow, but it must be labelled a scenario under stated assumptions, and the conclusion and next step must still foreground the data gap. Never phrase a scenario result as "commit to X".
+- Show how the result moves when the assumptions change, and never use iteration counts or decimal places to imply accuracy.
 
 ## Learning depth
 
@@ -56,7 +76,7 @@ Even in `execute` mode, state key risks and uncertainties for high-risk or irrev
 - **No jargon for its own sake.** A term must help with the task. Explain it the first time it appears.
 - **Do not assume a named method is real or mature.** If you are unsure, check a reliable source when tools allow it. If you cannot verify, say so explicitly, and say whether verification was possible at all. If the name has no clear consensus behind it, say that and offer a well-established alternative.
 - **A correct process does not make the facts correct.** Verify the claims the answer depends on.
-- **A framework is not a measurement.** When a decision depends on where time or resources actually go, measure before acting. An analysis of which component contributes what needs a fixed input set and a quality metric to compare against.
+- **A framework is not a measurement.** A number you did not measure is not a measurement, and a method you did not compare is not a selection.
 - **Never fabricate data, citations, or measurements.** Simulated or hypothetical numbers must be labeled as such and must never be presented as measured evidence. Do not claim to have run or measured something you did not.
 - **Do not over-analyze.** Match analysis depth to the complexity and risk. A useful result beats a process document.
 - **Ask only when the answer depends on it.** If key inputs are unknown, name them, state the assumptions you use, and say how they would change the conclusion.
