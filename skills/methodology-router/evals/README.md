@@ -7,7 +7,8 @@
 - `rubric.md`：判定标准。
 - `tools/run_evidence.mjs`：从 harness 会话记录判断 Skill 是否被加载（不采信模型自述），输出 `catalog_lists_skill` / `skill_loaded_calls` / `prompt` / `read_eval_materials` / `sent_messages` / `final_text`。运行：`node tools/run_evidence.mjs <会话记录路径>/session.v4.jsonl.zstd`（会话记录由 harness 生成，为 zstd 压缩的 JSONL；本工具用 Node 内置 `zlib.zstdDecompressSync`，无第三方依赖）。`tools/redact.mjs` 负责把家目录/DSH 路径/临时目录/用户名替换为占位符，再写入 `results/<version>/runs/`。
 - `tools/collect.sh`、`tools/summarize.mjs`、`tools/redact.mjs`：批量提取证据、汇总触发判定、脱敏。
-- `results/v1`、`results/v2`：每个版本的 `runs.tsv`（运行清单）、`runs/*.json`（脱敏后的证据与输出）、`summary.tsv`、`README.md`（判定与对照）。
+- `results/v1`…`results/v5`：每个版本的 `runs.tsv`、`runs/*.json`（脱敏证据与输出）、`summary.tsv`、`README.md`（判定与对照）。
+- `results/v5`：SKILL v5 修改后重跑的 8 个曾失败/存疑场景（H3、S2-1/2、S6-1/2、S5-1/2、D3）的内容判定。
 
 ## 运行方式
 
