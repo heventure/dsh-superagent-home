@@ -1,0 +1,6 @@
+all: should-trigger 7/7; should-skip 1/2; inconclusive 0
+excluding runs that read eval materials: should-trigger 7/7; should-skip 1/2; inconclusive 0
+zh: should-trigger 7/7; should-skip 0/1; inconclusive 0
+en: should-trigger 0/0; should-skip 1/1; inconclusive 0
+prompt_mismatch: v31-H1, v31-H2, v31-H3, v31-S1-1, v31-S1-2, v31-S2-1, v31-S2-2, v31-S3-1, v31-N05, v31-N10
+read_eval_materials: none

@@ -1,0 +1,12 @@
+{
+  "session_id": "6bd3fcfc-91ce-43f2-a16a-b2a23280b242",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:19:12.201Z",
+  "finished": false,
+  "prompt": "我想在一张 16GB 显存的显卡上本地跑大模型做 coding agent，帮我把速度和上下文长度调到最好。Your parent agent id is \"worker-2cf7e85e30799550baa289a35ae5652f\". Before you finish, send your result to that agent with send_message({ agent_id: \"worker-2cf7e85e30799550baa289a35ae5652f\", message: \"<self-contained result>\" }). The parent shares your workspace but does not automatically receive your transcript, tool output, or reasoning. Send earlier messages as well when a finding changes what the parent should do next; sending a message does not end your turn.",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 1,
+  "final_text": "",
+  "sent_messages": []
+}
