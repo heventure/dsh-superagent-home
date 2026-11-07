@@ -20,7 +20,7 @@ Use this skill when any of these hold:
 ## When to skip or minimize
 
 - The task is simple and explicit: just do it.
-- The user named a suitable method: use it, and if one of its preconditions does not hold, say which and adjust the result — do not reselect a different method.
+- The user named a suitable method: use it, and if one of its preconditions does not hold, say which and adjust the result — do not reselect a different method. If the decision still rests on data you do not have, mark that judgement as an assumption, state how it would be verified, and do not present it as a finding.
 - The user scoped one deliverable or one calculation: do it, and state its limits in the answer.
 - Further analysis would not change the action: act.
 
@@ -34,6 +34,8 @@ Work through these steps internally. Show the user only the parts that affect th
 4. **Execute.** Keep four things separate: verified facts, assumptions, estimates, and unknowns. Never present an estimate as a measurement.
 5. **Check.** Was the method right? Do its preconditions hold? Does the result meet the success criteria? Is there another explanation?
 6. **Teach only as needed.** Explain the minimum a user needs to judge the key decisions. Skip what they already understand.
+
+The final recommendation, tables, and conclusion must retain the same evidence limits as the body of the answer — do not let the framing outrun the measurement.
 
 ## Diagnosing a performance problem
 
@@ -52,6 +54,7 @@ Even when tracing is clearly the first step, say what profiling and ablation wou
 - **Measure, do not infer.** A repeatable benchmark needs a fixed prompt set, several repetitions, and at least TTFT, prefill, decode, peak memory, and a quality regression check. Change one variable per run.
 - **No unmeasured numbers.** Do not give speed figures, "best" configurations, or hardware verdicts for a machine you have not measured. Throughput quoted from vendor pages or community benchmarks is someone else's measurement: it is not evidence for this machine, so do not build a recommendation on it — name the benchmark the user has to run instead.
 - **No off-the-shelf verdict.** "This model plus these flags" is a hardware verdict unless it is conditional on measured results from that machine.
+- **Arithmetic sizing is conditional.** A budget calculation shows what fits arithmetically; it is not proof of fit on the actual machine, of quality, or of optimality.
 
 ## Estimates and predictions
 
@@ -60,6 +63,7 @@ Even when tracing is clearly the first step, say what profiling and ablation wou
 - A demonstration computation may follow, but it must be labelled a scenario under stated assumptions, and the conclusion and next step must still foreground the data gap. Never phrase a scenario result as "commit to X".
 - When the user asks for a date they can schedule or commit against, say plainly that no such date is supportable from these inputs, and give the collection plan first. If you show scenario dates, label them "assumption-only illustration — not for scheduling or commitment", do not recommend one date over another, and do not call any of them the date to promise.
 - Show how the result moves when the assumptions change, and never use iteration counts or decimal places to imply accuracy.
+- The worst case across invented scenarios is not a calibrated probability lower bound and is not a commitment.
 
 ## Learning depth
 
@@ -77,6 +81,7 @@ Even in `execute` mode, state key risks and uncertainties for high-risk or irrev
 
 - **No jargon for its own sake.** A term must help with the task. Explain it the first time it appears.
 - **Do not assume a named method is real or mature.** If you are unsure, check a reliable source when tools allow it. If you cannot verify, say so explicitly, and say whether verification was possible at all. If the name has no clear consensus behind it, say that and offer a well-established alternative.
+- A nearby real concept does not validate the requested named theory; do not invent mappings, principles, or testimonial statistics for it.
 - **A correct process does not make the facts correct.** Verify the claims the answer depends on.
 - **A framework is not a measurement.** A number you did not measure is not a measurement, and a method you did not compare is not a selection.
 - **Never fabricate data, citations, or measurements.** Simulated or hypothetical numbers must be labeled as such and must never be presented as measured evidence. Do not claim to have run or measured something you did not.
