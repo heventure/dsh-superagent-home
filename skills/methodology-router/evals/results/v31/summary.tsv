@@ -1,11 +1,11 @@
 run	arm	scenario	status	expected	catalog	loads	prompt_ok	read_eval	chars	verdict
 v31-H1	enabled	H1	complete	trigger	true	1	false	0	1508+154	hit
-v31-H2	enabled	H2	complete	trigger	true	1	false	0	0+0	hit
-v31-H3	enabled	H3	complete	n/a	true	1	false	0	0+63	behaviour-only
-v31-S1-1	enabled	S1	complete	trigger	true	1	false	0	0+149	hit
-v31-S1-2	enabled	S1	complete	trigger	true	1	false	0	0+131	hit
-v31-S2-1	enabled	S2	complete	trigger	true	1	false	0	0+0	hit
+v31-H2	enabled	H2	complete	trigger	true	1	false	0	1343+1413	hit
+v31-H3	enabled	H3	complete	n/a	true	1	false	0	1381+617	behaviour-only
+v31-S1-1	enabled	S1	complete	trigger	true	1	false	0	1018+67	hit
+v31-S1-2	enabled	S1	complete	trigger	true	1	false	0	1159+845	hit
+v31-S2-1	enabled	S2	complete	trigger	true	1	false	0	2028+983	hit
 v31-S2-2	enabled	S2	complete	trigger	true	1	false	0	0+0	hit
 v31-S3-1	enabled	S3	complete	trigger	true	1	false	0	815+1417	hit
-v31-N05	enabled	N05	complete	no_trigger	true	1	false	0	978+0	false-trigger
+v31-N05	enabled	N05	complete	no_trigger	true	1	false	0	978+1376	false-trigger
 v31-N10	enabled	N10	complete	no_trigger	true	0	false	0	485+596	correct-skip
