@@ -1,0 +1,6 @@
+all: should-trigger 23/25; should-skip 0/0; inconclusive 0
+excluding runs that read eval materials: should-trigger 22/24; should-skip 0/0; inconclusive 0
+zh: should-trigger 14/16; should-skip 0/0; inconclusive 0
+en: should-trigger 9/9; should-skip 0/0; inconclusive 0
+prompt_mismatch: v4-H1, v4-H2, v4-H3, v4-S1-1, v4-S1-2, v4-S2-1, v4-S3-1, v4-S3-2, v4-T01, v4-T02, v4-T03, v4-T04, v4-T05, v4-T06, v4-T07, v4-T08, v4-T09, v4-T11, v4-T02b, v4-T07b, v4-T08b, v4-T09b, v4-T07c, v4-T08c, v4-T10, v4-T02c
+read_eval_materials: v4-T02b
