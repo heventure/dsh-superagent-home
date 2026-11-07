@@ -4,6 +4,8 @@
   "started_at": "2026-11-07T02:36:36.744Z",
   "catalog_lists_skill": true,
   "skill_loaded_calls": 1,
-  "final_text": "",
-  "sent_messages": []
+  "final_text": "上面就是完整建议。一句话总结：**在 48 GB 显存上选 IQ4_XS + 16K，在 72 GB 及以上选 Q4_K_M/Q5_K_M + 32K，KV cache 一律 q8_0**；把硬件信息发我，我就能帮你把命令和 offload 参数确定到可以直接运行。",
+  "sent_messages": [
+    "任务：本地 70B 代码助手的量化与上下文配置建议（无硬件信息，已给条件化方案）。\n\n核心结论：默认 Q4_K_M + 16K 上下文 + KV cache q8_0 + llama.cpp（--jinja 供 IDE 工具调用）。\n\n关键计算：Llama-3.3-70B / Qwen2.5-72B 均为 80 层、8 KV head、head_dim 128 → 每 token 320 KiB(fp16)，q8 减半。8K=2.5GB、16K=5GB、32K=10GB、64K=20GB、128K=40GB。Q4_K_M 权重约 42GB，因此 48GB 总显存放不下 32K；80GB 单卡 Q4+32K 才宽裕。\n\n按显存：\n- 24GB×1：不建议跑 70B（offload 后 2–4 tok/s），换 32B。\n- 48GB(2×24)：IQ4_XS + 16K(q8 KV) ≈ 15–20 tok/s；Q4_K_M 只够 8K。\n- 72GB(3×24)：Q4_K_M/Q5_K_S + 32K。\n- 96GB(4×24)：Q5_K_M/Q6_K + 32–48K。\n- 80GB×1：Q5_K_M + 32K，或 Q4 + 64K。\n- 160GB：Q6_K 或 FP8(vLLM) + 64–128K。\n- Mac 64GB：Q4_K_M + 16K（5–8 tok/s）；128GB：Q6_K + 32K。\n\n量化取舍：Q5/Q6 仅 ≥72GB 才值，代码收益 <1%；Q4_K_M 默认；IQ4_XS 显存紧时用；Q3 及以下不建议（代码对量化敏感，API 名/标识符易错）；AWQ/GPTQ/FP8 属 vLLM 多用户场景。\n\n启动示例：llama-server -m ...Q4_K_M.gguf -ngl 99 -c 16384 -fa on -ctk q8_0 -ctv q8_0 -b 2048 -ub 512 -np 1 --jinja --host 0.0.0.0 --port 8080\n\n两个提醒：① 70B dense 未必最优——同 48GB 下 Qwen2.5-Coder-32B/Qwen3-32B 用 Q6_K+32K 速度 2–3 倍，补全体验更好，70B 优势在复杂推理/跨文件重构；② 别超原生窗口（Qwen2.5-72B 原生 32K，超了要 YaRN 且质量下降），30K prompt 在 2×3090 预填充约 1–2 分钟。\n\n已向用户索要：GPU 型号/数量/显存、内存、CUDA/Mac、并发人数、IDE 插件、仓库规模、可接受 tok/s，以便给出可直接复制的命令。速度数字为估算，非实测。"
+  ]
 }

@@ -6,7 +6,8 @@
 - `trigger_set.jsonl`：触发集，29 条（应触发 15、不应触发 14），中英文混合。
 - `rubric.md`：判定标准。
 - `tools/check_run.sh`：从 harness 会话记录判断 Skill 是否被加载（不采信模型自述）。
-- `results/`：每次运行的记录。
+- `tools/collect.sh`、`tools/summarize.mjs`、`tools/redact.mjs`：批量提取证据、汇总触发判定、脱敏。
+- `results/v1`、`results/v2`：每个版本的 `runs.tsv`（运行清单）、`runs/*.json`（脱敏后的证据与输出）、`summary.tsv`、`README.md`（判定与对照）。
 
 ## 运行方式
 

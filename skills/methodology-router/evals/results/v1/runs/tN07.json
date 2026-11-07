@@ -1,0 +1,11 @@
+{
+  "session_id": "84b50d5a-30fd-4130-ba74-38da07f29d3e",
+  "model": "group/main",
+  "started_at": "2026-11-07T02:37:41.053Z",
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "澳大利亚的首都是**堪培拉**（Canberra）。",
+  "sent_messages": [
+    "澳大利亚的首都是堪培拉（Canberra）。"
+  ]
+}
