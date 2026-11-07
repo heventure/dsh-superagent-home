@@ -1,0 +1,29 @@
+{"id":"T01","lang":"zh","expect":"trigger","category":"complex_no_method","prompt":"结账转化率上个月掉了，帮我查原因"}
+{"id":"T02","lang":"en","expect":"trigger","category":"complex_no_method","prompt":"Checkout conversion dropped last month. Help me find out why."}
+{"id":"T03","lang":"zh","expect":"trigger","category":"complex_no_method","prompt":"我们的推荐系统上线后点击率没涨，帮我找出原因并设计验证方案"}
+{"id":"T04","lang":"en","expect":"trigger","category":"complex_no_method","prompt":"Our API p95 latency doubled after the last release. Figure out what to do."}
+{"id":"T05","lang":"zh","expect":"trigger","category":"complex_no_method","prompt":"要把单体服务拆成微服务，但团队只有 4 个人，怎么拆比较稳？"}
+{"id":"T06","lang":"en","expect":"trigger","category":"complex_no_method","prompt":"We need to choose between three vendors for our data pipeline and have no clear criteria yet."}
+{"id":"T07","lang":"zh","expect":"trigger","category":"complex_no_method","prompt":"我们的 Agent 跑一个任务要 45 秒，用户嫌慢，帮我优化"}
+{"id":"T08","lang":"en","expect":"trigger","category":"complex_no_method","prompt":"Our onboarding flow loses most users. Help me decide what to test first."}
+{"id":"T09","lang":"zh","expect":"trigger","category":"complex_no_method","prompt":"新品定价应该定多少？我们没有历史销售数据"}
+{"id":"T10","lang":"en","expect":"trigger","category":"complex_no_method","prompt":"Users say search results feel irrelevant. Diagnose it and propose a plan."}
+{"id":"T11","lang":"zh","expect":"trigger","category":"complex_no_method","prompt":"这个数据库迁移要停机多久我心里没底，帮我评估几个方案"}
+{"id":"T12","lang":"en","expect":"trigger","category":"complex_no_method","prompt":"Q3 churn rose across several customer segments. Find the cause."}
+{"id":"T13","lang":"zh","expect":"trigger","category":"user_method_inapplicable","prompt":"用 A/B 显著性检验证明我们新提示词更好，我们只有 3 个测试样例"}
+{"id":"T14","lang":"en","expect":"trigger","category":"user_method_inapplicable","prompt":"Use a t-test to prove our new prompt is better. We only have 3 test cases."}
+{"id":"T15","lang":"zh","expect":"trigger","category":"complex_no_method","prompt":"本地跑 70B 模型做代码助手，帮我配置最合适的量化和上下文长度"}
+{"id":"N01","lang":"zh","expect":"no_trigger","category":"term_but_simple","prompt":"一句话解释什么是蒙特卡洛模拟"}
+{"id":"N02","lang":"en","expect":"no_trigger","category":"term_but_simple","prompt":"Explain what a p-value is in one sentence."}
+{"id":"N03","lang":"zh","expect":"no_trigger","category":"simple_explicit","prompt":"把 utils.py 里的变量 cnt 改名为 count"}
+{"id":"N04","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Rename the variable cnt to count in utils.py."}
+{"id":"N05","lang":"zh","expect":"no_trigger","category":"user_method_suitable","prompt":"请用 Welch t 检验比较这两组转化率的均值差异，数据我贴在下面：A 组 [0.12, 0.15, 0.11]，B 组 [0.18, 0.21, 0.19]"}
+{"id":"N06","lang":"en","expect":"no_trigger","category":"user_method_suitable","prompt":"Using pandas, group this CSV by date and sum the revenue column."}
+{"id":"N07","lang":"zh","expect":"no_trigger","category":"simple_explicit","prompt":"澳大利亚的首都是哪里？"}
+{"id":"N08","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Translate this sentence into English: 今天天气很好。"}
+{"id":"N09","lang":"zh","expect":"no_trigger","category":"simple_explicit","prompt":"用 Mermaid 画一个登录流程图"}
+{"id":"N10","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Summarize this paragraph in three bullet points."}
+{"id":"N11","lang":"zh","expect":"no_trigger","category":"term_but_simple","prompt":"用大白话解释一下什么是互斥锁"}
+{"id":"N12","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Convert this JSON to YAML."}
+{"id":"N13","lang":"zh","expect":"no_trigger","category":"user_method_suitable","prompt":"用 git rebase 把我的分支更新到 main，然后帮我解决冲突"}
+{"id":"N14","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Write a commit message for these changes: added retry to the HTTP client."}
