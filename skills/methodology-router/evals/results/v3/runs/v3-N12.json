@@ -1,0 +1,14 @@
+{
+  "session_id": "173eabfe-a77c-404b-82f8-1cb6df71cccc",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:15:40.314Z",
+  "finished": true,
+  "prompt": "The working directory changed from \"<DSH_HOME>/work/methodology-router-skill-2cf7e85e3079\" to \"<SCRATCH>/tToJWGSs\".",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "```yaml\nname: orders\nretries: 3\nenabled: true\n```\n\nResult also sent to the parent agent.",
+  "sent_messages": [
+    "JSON→YAML result for {\"name\":\"orders\",\"retries\":3,\"enabled\":true}:\n\n```yaml\nname: orders\nretries: 3\nenabled: true\n```\n\n(Equivalent valid YAML; booleans/numbers unquoted, key order preserved.)"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "session_id": "9754a4a5-f7a1-400b-8fa1-244f847e3347",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:14:31.431Z",
+  "finished": true,
+  "prompt": "The working directory changed from \"<DSH_HOME>/work/methodology-router-skill-2cf7e85e3079\" to \"<SCRATCH>/c6mEnHvU\".",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "蒙特卡洛模拟是一种通过大量随机抽样来近似估计复杂系统可能结果及其概率分布的计算方法。",
+  "sent_messages": [
+    "蒙特卡洛模拟是一种通过大量随机抽样来近似估计复杂系统可能结果及其概率分布的计算方法。"
+  ]
+}

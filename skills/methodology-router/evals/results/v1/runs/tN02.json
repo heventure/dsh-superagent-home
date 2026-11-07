@@ -1,0 +1,11 @@
+{
+  "session_id": "082bec50-3733-48cd-950d-a68d5d3e7598",
+  "model": "group/main",
+  "started_at": "2026-11-07T02:36:48.077Z",
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "A p-value is the probability, assuming the null hypothesis is true, that a test statistic would be at least as extreme as the one observed — a measure of how incompatible the data are with the null hypothesis, not the probability that the null hypothesis is itself true.",
+  "sent_messages": [
+    "Result: A p-value is the probability, assuming the null hypothesis is true, of observing a test statistic at least as extreme as the one actually obtained — i.e., a measure of how incompatible the observed data are with the null hypothesis, not the probability that the null hypothesis is true.\n\n(Simple single-sentence definition request; no methodology-router or other skill needed. Working directory confirmed as <SCRATCH>/tN02.)"
+  ]
+}

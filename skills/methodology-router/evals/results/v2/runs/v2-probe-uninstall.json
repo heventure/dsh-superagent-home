@@ -1,0 +1,11 @@
+{
+  "session_id": "bfe3bbf3-2f37-42d5-b571-74352ab1a40a",
+  "model": "group/main",
+  "started_at": "2026-11-07T02:46:03.080Z",
+  "catalog_lists_skill": false,
+  "skill_loaded_calls": 0,
+  "final_text": "Available skills: `photo-postprocessing`, `trim-cli`.",
+  "sent_messages": [
+    "Probe result (cwd <SCRATCH>/v2/probe-uninstall, no skills loaded, no files edited): available-skills catalog contains exactly 2 skill names: `photo-postprocessing`, `trim-cli`."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "session_id": "4f8c0d82-3693-4196-b15e-8880a740fadf",
+  "model": "group/main",
+  "started_at": "2026-11-07T02:37:51.553Z",
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "**Translation:** 今天天气很好。 → **\"The weather is very nice today.\"**\n\nAlternatives: *\"It's a beautiful day today.\"* / *\"The weather is great today.\"*",
+  "sent_messages": [
+    "Translation (Chinese → English): 今天天气很好。 → \"The weather is very nice today.\" (Alternatives: \"It's a beautiful day today.\" / \"The weather is great today.\")"
+  ]
+}

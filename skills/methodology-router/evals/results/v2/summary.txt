@@ -1,0 +1,5 @@
+
+rows=32
+should-trigger: 9/9
+should-skip:    15/16
+misses=0 false_triggers=1 no_evidence=0

@@ -1,0 +1,12 @@
+{
+  "session_id": "0c82073e-2718-4981-ba9c-cc1e1d58f588",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:12:01.370Z",
+  "finished": true,
+  "prompt": "The working directory changed from \"<DSH_HOME>/work/methodology-router-skill-2cf7e85e3079\" to \"<SCRATCH>/yB65cGKN\".",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "",
+  "sent_messages": []
+}

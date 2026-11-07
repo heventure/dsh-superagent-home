@@ -1,0 +1,11 @@
+{
+  "session_id": "d5eb37b4-2f02-410c-945b-5d8a75f39a5e",
+  "model": "group/main",
+  "started_at": "2026-11-07T02:29:08.268Z",
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 1,
+  "final_text": "已完成并把结果同步给上层 agent。\n\n一句话总结：**16GB 上最优解是 MoE 而不是大稠密模型**——gpt-oss-20b MXFP4（~11–12GB，激活 3.6B）能同时给你 128k 原生上下文和 40–60 tok/s 级解码；稠密 14B 只剩 32k 且慢一半。真正的速度杠杆是 `-ctk/-ctv q8_0`（KV 砍半）+ `--cache-reuse`（agent 增量 prompt 免重算），而不是换更大的模型。\n\n需要提醒的两点局限：本机无 GPU，所以 tok/s 是带宽估算；模型权重体积请以下载到的 GGUF 实际大小为准。",
+  "sent_messages": [
+    "任务：16GB 显存本地跑大模型做 coding agent，要速度+上下文最优。已用 methodology-router（框架：显存预算约束下的取舍，非新方法）。\n\n重要前提：本机无 GPU（nvidia-smi 不存在，无 torch/ollama，仅 15GB RAM/4 核），无法实测；tok/s 全部是带宽估算，已明确标注。显存/KV 数学为实算。\n\n核心结论：16GB 的约束是 权重+KV+~1GB 缓冲 抢 15GB，且 KV 启动即预分配、随 ctx 线性增长。推荐 MoE 路线：\n- A(推荐) gpt-oss-20b MXFP4 ~11-12GB，128k 原生上下文，KV 仅 24KiB/token（24 层中仅 12 层全注意力），激活 3.6B → 估算 40-60 tok/s(4060Ti)/65-90(5060Ti)\n- B Qwen3-14B Q4_K_M 8.9GB + q8 KV → 只能 32k（fp16 KV 32k=5.0GB 会爆）\n- C Qwen2.5-Coder-7B Q5_K_M 5.5GB → 32k 且余 6GB，最快但质量最低\n\n实算 KV 表(32k/fp16)：7B 1.8G、Qwen3-8B 4.5G(144KiB/tok)、Qwen3-14B 5.0G、Coder-14B 6.0G、gpt-oss-20b 0.8G。→ 稠密14B+32k 正好吃满 16GB；要 64k 只能 MoE 或降 7B。\n\n关键调参（比换模型更值钱）：-fa on、-ctk/-ctv q8_0（KV 砍半，质量几乎无损；q4 KV 不可用）、-c 设为真实所需（勿虚设，会 OOM）、-np 1、--cache-reuse 256（agent 增量 prompt，省 80% prefill）、-ub 512/-b 2048、--jinja + --reasoning-budget 512。\n验证：llama-bench -p 8192 -n 128；响应 timings 看 prompt_per_second（<500 则 agent 卡）与 predicted_per_second（>20 可用）、cache_n（应≈上轮 prompt 长度，否则 cache-reuse 没生效）。\n升级建议：二手 3090 24GB 远优于任何 16GB 卡；16GB 档内 5060 Ti(448GB/s) 比 4060 Ti(288GB/s) 快约 55%。\n已核实：HuggingFace config.json、llama.cpp master server README 参数。未核实：所有 tok/s（估算）、gpt-oss-20b GGUF 实际体积。\n\n完整答复已直接输出给用户（含三套启动命令与判读标准）。"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "session_id": "9ff12678-e441-40ad-bc24-e2731e4434a1",
+  "model": "group/main",
+  "started_at": "2026-11-07T02:42:41.399Z",
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "```yaml\nname: orders\nretries: 3\nenabled: true\n```",
+  "sent_messages": [
+    "Converted JSON to YAML:\n\n```yaml\nname: orders\nretries: 3\nenabled: true\n```"
+  ]
+}

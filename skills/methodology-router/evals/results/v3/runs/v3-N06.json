@@ -1,0 +1,14 @@
+{
+  "session_id": "0a6ef989-d5ab-4843-885b-c041e9ea03ff",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:14:58.744Z",
+  "finished": false,
+  "prompt": "The working directory changed from \"<DSH_HOME>/work/methodology-router-skill-2cf7e85e3079\" to \"<SCRATCH>/k6bLLZ8E\".",
+  "read_eval_materials": [
+    "bash: {\"command\":\"set -e\\nprintf 'Old cwd listing:\\\\n'\\nls -la <DSH_HOME>/work/methodology-router-skill-2cf7e85e3079 2>&1 || true\\nprintf '\\\\n"
+  ],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "",
+  "sent_messages": []
+}

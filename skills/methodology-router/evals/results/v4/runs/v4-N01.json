@@ -1,0 +1,14 @@
+{
+  "session_id": "13d73154-c255-4836-92ff-c4a4c41e2f4e",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:34:13.239Z",
+  "finished": true,
+  "prompt": "一句话解释什么是蒙特卡洛模拟",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "蒙特卡洛模拟（Monte Carlo simulation）是一种利用大量随机抽样来近似求解复杂问题的数值计算方法：它通过反复生成随机输入并统计其结果分布，来估计概率、期望值、积分或不确定性（如金融风险、物理过程、项目工期预测）。\n\n一句话：「大量撒随机样本 + 统计输出」，用抽样的近似来逼近精确答案。",
+  "sent_messages": [
+    "蒙特卡洛模拟（Monte Carlo simulation）是一种利用大量随机抽样来近似求解复杂问题的方法：它通过重复生成随机输入并统计其结果分布，来估计概率、积分、期望值或系统不确定性（如金融风险、物理过程、项目工期预测）。一句话：靠“撒大量随机样本+统计输出”来逼近精确答案的数值计算方法。"
+  ]
+}
