@@ -7,6 +7,6 @@
   "read_eval_materials": [],
   "catalog_lists_skill": true,
   "skill_loaded_calls": 1,
-  "final_text": "Three real bugs surfaced — my serial-chain detector had an inverted threshold, and the fixture's percentile arithmetic was off. Let me fix both.",
+  "final_text": "All checks pass. Let me verify the CLI path and JSON output work end-to-end.",
   "sent_messages": []
 }
