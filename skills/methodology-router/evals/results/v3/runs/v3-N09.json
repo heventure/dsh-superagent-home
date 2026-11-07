@@ -1,0 +1,12 @@
+{
+  "session_id": "d5137b4e-5732-4cfd-ac0b-b177a16c544b",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:15:29.827Z",
+  "finished": false,
+  "prompt": "The working directory changed from \"<DSH_HOME>/work/methodology-router-skill-2cf7e85e3079\" to \"<SCRATCH>/PgJSHIwn\".",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "",
+  "sent_messages": []
+}

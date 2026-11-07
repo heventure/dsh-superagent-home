@@ -1,0 +1,6 @@
+all: should-trigger 23/25; should-skip 14/16; inconclusive 0
+excluding runs that read eval materials: should-trigger 19/21; should-skip 12/14; inconclusive 0
+zh: should-trigger 17/18; should-skip 8/9; inconclusive 0
+en: should-trigger 6/7; should-skip 6/7; inconclusive 0
+prompt_mismatch: v3-S1-1, v3-S1-2, v3-S2-1, v3-S2-2, v3-S3-1, v3-S3-2, v3-H1, v3-H2, v3-S4-1, v3-S4-2, v3-S5-1, v3-S5-2, v3-S6-1, v3-S6-2, v3-H3, v3-D1, v3-D2, v3-D3, v3-T01, v3-T02, v3-T03, v3-T04, v3-T05, v3-T06, v3-T07, v3-T08, v3-T09, v3-T10, v3-T11, v3-T12, v3-T13, v3-T14, v3-T15, v3-N01, v3-N02, v3-N03, v3-N04, v3-N05, v3-N06, v3-N07, v3-N08, v3-N09, v3-N10, v3-N11, v3-N12, v3-N13, v3-N14
+read_eval_materials: v3-T01, v3-T02, v3-T04, v3-T12, v3-N06, v3-N13
