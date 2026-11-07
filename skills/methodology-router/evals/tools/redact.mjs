@@ -2,16 +2,19 @@
 // Redact local identifiers from collected run evidence before it is committed to a
 // public repository. Reads run-evidence JSON on stdin, writes redacted JSON.
 //
-// Redacted: account home, DSH home (env DSH_HOME), eval scratch root (env EVAL_SCRATCH),
-// user name, host name. Nothing else is altered.
+// Redacted: DSH home (env DSH_HOME), eval scratch roots, account home, user name, host
+// name, and the machine's CPU/GPU model. Nothing else is altered.
 import { homedir, hostname, userInfo } from 'node:os'
 
 const replacements = [
   [process.env.DSH_HOME, '<DSH_HOME>'],
-  [process.env.EVAL_SCRATCH || '/tmp/mr-eval', '<SCRATCH>'],
+  ['/tmp/mr-eval', '<SCRATCH>'],
+  [process.env.EVAL_SCRATCH || '/tmp/wk', '<SCRATCH>'],
   [homedir(), '<ACCOUNT_HOME>'],
   [userInfo().username, '<ACCOUNT>'],
   [hostname(), '<HOST>'],
+  ['Intel N150', '<HOST_CPU>'],
+  ['Alder Lake-N', '<HOST_GPU>'],
 ].filter(([from]) => from && from.length > 2)
 
 let input = ''

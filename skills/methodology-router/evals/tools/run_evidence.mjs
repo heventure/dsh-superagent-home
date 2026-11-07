@@ -5,7 +5,9 @@
 // usage: node run_evidence.mjs <session.v4.jsonl.zstd>
 //
 // output JSON:
-//   session_id, model, started_at
+//   session_id, model, started_at, finished (session reached turn/end)
+//   prompt               first user message of the session, as recorded
+//   read_eval_materials  tool calls that touched the eval materials or the ticket checkout
 //   catalog_lists_skill  the skill appeared in an injected <available_skills> catalog
 //   skill_loaded_calls   recorded `skill` tool calls that named the skill
 //   final_text           last assistant text of the session
@@ -38,6 +40,13 @@ const sent = events
   .filter((e) => e.type === 'tool/call' && e.data.name === 'send_message')
   .map((e) => JSON.parse(e.data.arguments).message)
 
+const textOf = (e) => (e.data.content ?? []).map((c) => c.text ?? '').join('')
+const firstUser = events.find((e) => e.type === 'user/message' && !textOf(e).startsWith('<system-reminder'))
+const EVAL_PATHS = /rubric\.md|scenarios\.md|trigger_set|prompts\.jsonl|holdout|evals\/|results\/v\d|methodology-router-skill/
+const readEval = events
+  .filter((e) => e.type === 'tool/call' && e.data.name !== 'send_message' && EVAL_PATHS.test(String(e.data.arguments)))
+  .map((e) => `${e.data.name}: ${String(e.data.arguments).slice(0, 160)}`)
+
 const head = events.find((e) => e.type === 'session')
 const descriptor = events.find((e) => e.type === 'subagent/descriptor')
 
@@ -47,6 +56,9 @@ console.log(
       session_id: head?.id ?? null,
       model: descriptor?.data?.agentModel ?? null,
       started_at: head ? new Date(head.createdAt).toISOString() : null,
+      finished: events.some((e) => e.type === 'turn/end'),
+      prompt: firstUser ? textOf(firstUser) : null,
+      read_eval_materials: readEval,
       catalog_lists_skill: catalog,
       skill_loaded_calls: loads,
       final_text: finalText,

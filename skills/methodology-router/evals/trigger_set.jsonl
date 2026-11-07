@@ -22,8 +22,8 @@
 {"id":"N07","lang":"zh","expect":"no_trigger","category":"simple_explicit","prompt":"澳大利亚的首都是哪里？"}
 {"id":"N08","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Translate this sentence into English: 今天天气很好。"}
 {"id":"N09","lang":"zh","expect":"no_trigger","category":"simple_explicit","prompt":"用 Mermaid 画一个登录流程图"}
-{"id":"N10","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Summarize this paragraph in three bullet points."}
+{"id":"N10","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Summarize this paragraph in three bullet points: Local LLM inference is dominated by memory bandwidth; quantized weights reduce model size but add dequantization cost; KV cache size grows linearly with context length and parallel slots."}
 {"id":"N11","lang":"zh","expect":"no_trigger","category":"term_but_simple","prompt":"用大白话解释一下什么是互斥锁"}
-{"id":"N12","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Convert this JSON to YAML."}
+{"id":"N12","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Convert this JSON to YAML: {\"name\":\"orders\",\"retries\":3,\"enabled\":true}"}
 {"id":"N13","lang":"zh","expect":"no_trigger","category":"user_method_suitable","prompt":"用 git rebase 把我的分支更新到 main，然后帮我解决冲突"}
 {"id":"N14","lang":"en","expect":"no_trigger","category":"simple_explicit","prompt":"Write a commit message for these changes: added retry to the HTTP client."}

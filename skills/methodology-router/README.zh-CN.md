@@ -32,11 +32,11 @@
 
 ## 安装
 
-Skill 目录是 `skills/methodology-router/`。安装到运行账号的 Skill 目录：
+运行时只需要 `SKILL.md`。不要把 `evals/` 一起装上：其中有评分标准和预期答案，模型加载 Skill 后可能读到它们，评测就失效了。
 
 ```bash
-mkdir -p "$HOME/.agents/skills"
-cp -R skills/methodology-router "$HOME/.agents/skills/methodology-router"
+mkdir -p "$HOME/.agents/skills/methodology-router"
+cp skills/methodology-router/SKILL.md "$HOME/.agents/skills/methodology-router/SKILL.md"
 ```
 
 安装后应能在新会话中被发现（Skill 列表里出现 `methodology-router`）。
