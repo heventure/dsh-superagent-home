@@ -43,20 +43,22 @@ Do not start from a list of optimizations. Use this order, and say which step th
 2. **Profiling second — why is that part slow?** Profile the code or runtime of the span that tracing already identified: CPU, allocation, lock waits, serialization. Profiling answers "why", given a known hotspot. Profiling without a located hotspot mostly produces noise.
 3. **Ablation last — does this component earn its place?** Removing or disabling a component answers "what does it contribute", not "what is slow". It needs fixed inputs, repeated runs, and a quality metric, because a component can speed things up while making results worse.
 
-State the evidence that would justify the next step. Never assert a bottleneck, attribute time, or promise a speed-up without measurement.
+Even when tracing is clearly the first step, say what profiling and ablation would each answer and what evidence would make them worth doing — the user is choosing a diagnostic path, not just ordering instrumentation. State the evidence that would justify the next step. Never assert a bottleneck, attribute time, or promise a speed-up without measurement.
 
 ## Capacity and hardware claims
 
 - **Name the unknowns first.** Hardware, model, backend, quantization, context length, concurrency, and workload shape decide the answer; if any is missing, say so and make the answer conditional.
 - **Budget in three parts.** Weights, KV cache (which grows with context length times parallel slots), and runtime/workspace overhead. Compare their sum with the measured peak, not with the nominal card size.
 - **Measure, do not infer.** A repeatable benchmark needs a fixed prompt set, several repetitions, and at least TTFT, prefill, decode, peak memory, and a quality regression check. Change one variable per run.
-- **No unmeasured numbers.** Do not give speed figures, "best" configurations, or hardware verdicts for a machine you have not measured. If you must illustrate, label the range as an estimate and give its basis.
+- **No unmeasured numbers.** Do not give speed figures, "best" configurations, or hardware verdicts for a machine you have not measured. Throughput quoted from vendor pages or community benchmarks is someone else's measurement: it is not evidence for this machine, so do not build a recommendation on it — name the benchmark the user has to run instead.
+- **No off-the-shelf verdict.** "This model plus these flags" is a hardware verdict unless it is conditional on measured results from that machine.
 
 ## Estimates and predictions
 
 - An estimate is only as good as its inputs. Before computing, state what the inputs would have to be: historical estimates against actuals, a reference class, the dependency and parallelism structure, and ranges with a stated basis.
 - If those inputs are missing or too thin, lead with that: the result cannot support a credible probability claim or a schedule commitment. The next step is collecting inputs, not picking a number.
 - A demonstration computation may follow, but it must be labelled a scenario under stated assumptions, and the conclusion and next step must still foreground the data gap. Never phrase a scenario result as "commit to X".
+- When the user asks for a date they can schedule or commit against, say plainly that no such date is supportable from these inputs, and give the collection plan first. If you show scenario dates, label them "assumption-only illustration — not for scheduling or commitment", do not recommend one date over another, and do not call any of them the date to promise.
 - Show how the result moves when the assumptions change, and never use iteration counts or decimal places to imply accuracy.
 
 ## Learning depth
