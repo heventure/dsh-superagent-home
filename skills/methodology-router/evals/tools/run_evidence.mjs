@@ -41,7 +41,11 @@ const sent = events
   .map((e) => JSON.parse(e.data.arguments).message)
 
 const textOf = (e) => (e.data.content ?? []).map((c) => c.text ?? '').join('')
-const firstUser = events.find((e) => e.type === 'user/message' && !textOf(e).startsWith('<system-reminder'))
+const firstUser = events.find((e) => {
+  if (e.type !== 'user/message') return false
+  const t = textOf(e)
+  return !t.startsWith('<system-reminder') && !t.startsWith('The working directory changed')
+})
 const EVAL_PATHS = /rubric\.md|scenarios\.md|trigger_set|prompts\.jsonl|holdout|evals\/|results\/v\d|methodology-router-skill/
 const readEval = events
   .filter((e) => e.type === 'tool/call' && e.data.name !== 'send_message' && EVAL_PATHS.test(String(e.data.arguments)))
