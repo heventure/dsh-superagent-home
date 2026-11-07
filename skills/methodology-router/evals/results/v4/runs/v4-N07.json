@@ -1,0 +1,14 @@
+{
+  "session_id": "72b01d3a-a548-4191-88e2-361bd505b436",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:34:46.020Z",
+  "finished": true,
+  "prompt": "澳大利亚的首都是哪里？",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "澳大利亚的首都是**堪培拉（Canberra）**。\n\n我已将结果发送给父代理。",
+  "sent_messages": [
+    "澳大利亚的首都是堪培拉（Canberra）。"
+  ]
+}

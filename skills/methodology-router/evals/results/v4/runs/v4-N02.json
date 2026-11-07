@@ -1,0 +1,14 @@
+{
+  "session_id": "0fe61a5e-541f-43de-ba14-ba74804de818",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:34:13.241Z",
+  "finished": true,
+  "prompt": "Explain what a p-value is in one sentence.",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "A p-value is the probability, assuming the null hypothesis is true, of observing a test statistic as extreme as or more extreme than the one actually obtained from the data, used to gauge how surprising the results are under that hypothesis.",
+  "sent_messages": [
+    "A p-value is the probability, assuming the null hypothesis is true, of observing a test statistic as extreme as or more extreme than the one actually obtained from the data, used to gauge how surprising the results are under that hypothesis."
+  ]
+}

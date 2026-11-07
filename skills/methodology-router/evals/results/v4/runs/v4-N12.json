@@ -1,0 +1,14 @@
+{
+  "session_id": "6b1f7dec-b909-475a-81d5-50ab0a119433",
+  "model": "group/main",
+  "started_at": "2026-11-07T03:35:10.210Z",
+  "finished": true,
+  "prompt": "Convert this JSON to YAML: {\"name\":\"orders\",\"retries\":3,\"enabled\":true}",
+  "read_eval_materials": [],
+  "catalog_lists_skill": true,
+  "skill_loaded_calls": 0,
+  "final_text": "Here's the YAML conversion:\n\n```yaml\nname: orders\nretries: 3\nenabled: true\n```\n\nThe scalar types are preserved: `name` stays a string, `retries` remains an integer (3), and `enabled` remains a boolean (true).",
+  "sent_messages": [
+    "Converted JSON to YAML:\nname: orders\nretries: 3\nenabled: true"
+  ]
+}

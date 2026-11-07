@@ -3,7 +3,7 @@
   "model": "group/main",
   "started_at": "2026-11-07T03:25:38.632Z",
   "finished": true,
-  "prompt": "订单推荐 Agent 最近偶尔要等 25 秒。代码里有一次模型调用、两个检索源和三个工具，但没有分段耗时。先告诉我最该做的诊断步骤，以及什么证据出现后才值得做性能剖析或关闭某个组件对比；不要假定瓶颈。Your parent agent id is \"worker-2cf7e85e30799550baa289a35ae5652f\". Before you finish, send your result to that agent with send_message({ agent_id: \"worker-2cf7e85e30799550baa289a35ae5652f\", message: \"<self-contained result>\" }). The parent shares your workspace but does not automatically receive your transcript, tool output, or reasoning. Send earlier messages as well when a finding changes what the parent should do next; sending a message does not end your turn.",
+  "prompt": "订单推荐 Agent 最近偶尔要等 25 秒。代码里有一次模型调用、两个检索源和三个工具，但没有分段耗时。先告诉我最该做的诊断步骤，以及什么证据出现后才值得做性能剖析或关闭某个组件对比；不要假定瓶颈。",
   "read_eval_materials": [],
   "catalog_lists_skill": true,
   "skill_loaded_calls": 1,
