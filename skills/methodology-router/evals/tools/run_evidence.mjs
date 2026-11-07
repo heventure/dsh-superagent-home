@@ -46,6 +46,7 @@ const firstUser = events.find((e) => {
   const t = textOf(e)
   return !t.startsWith('<system-reminder') && !t.startsWith('The working directory changed')
 })
+const cleanPrompt = firstUser ? textOf(firstUser).split('Your parent agent id is')[0] : null
 const EVAL_PATHS = /rubric\.md|scenarios\.md|trigger_set|prompts\.jsonl|holdout|evals\/|results\/v\d|methodology-router-skill/
 const readEval = events
   .filter((e) => e.type === 'tool/call' && e.data.name !== 'send_message' && EVAL_PATHS.test(String(e.data.arguments)))
@@ -61,7 +62,7 @@ console.log(
       model: descriptor?.data?.agentModel ?? null,
       started_at: head ? new Date(head.createdAt).toISOString() : null,
       finished: events.some((e) => e.type === 'turn/end'),
-      prompt: firstUser ? textOf(firstUser) : null,
+      prompt: cleanPrompt,
       read_eval_materials: readEval,
       catalog_lists_skill: catalog,
       skill_loaded_calls: loads,
