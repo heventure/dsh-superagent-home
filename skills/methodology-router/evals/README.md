@@ -5,7 +5,7 @@
 - `scenarios.md`：六个场景和深度检查的提示词、期望与失败信号。
 - `trigger_set.jsonl`：触发集，29 条（应触发 15、不应触发 14），中英文混合。
 - `rubric.md`：判定标准。
-- `tools/check_run.sh`：从 harness 会话记录判断 Skill 是否被加载（不采信模型自述）。
+- `tools/run_evidence.mjs`：从 harness 会话记录判断 Skill 是否被加载（不采信模型自述），输出 `catalog_lists_skill` / `skill_loaded_calls` / `prompt` / `read_eval_materials` / `sent_messages` / `final_text`。运行：`node tools/run_evidence.mjs <会话记录路径>/session.v4.jsonl.zstd`（会话记录由 harness 生成，为 zstd 压缩的 JSONL；本工具用 Node 内置 `zlib.zstdDecompressSync`，无第三方依赖）。`tools/redact.mjs` 负责把家目录/DSH 路径/临时目录/用户名替换为占位符，再写入 `results/<version>/runs/`。
 - `tools/collect.sh`、`tools/summarize.mjs`、`tools/redact.mjs`：批量提取证据、汇总触发判定、脱敏。
 - `results/v1`、`results/v2`：每个版本的 `runs.tsv`（运行清单）、`runs/*.json`（脱敏后的证据与输出）、`summary.tsv`、`README.md`（判定与对照）。
 
@@ -17,7 +17,7 @@
 4. 加载证据：对每次运行的会话记录执行
 
    ```bash
-   sh evals/tools/check_run.sh <会话记录路径>/session.v4.jsonl.zstd
+   node evals/tools/run_evidence.mjs <会话记录路径>/session.v4.jsonl.zstd
    ```
 
    它检查两件事：系统消息中的 Skill 目录是否列出了 `methodology-router`（可发现性）；会话记录中是否出现名为 `skill`、参数含 `methodology-router` 的工具调用（实际加载）。会话记录路径由运行方式决定，结果中写明路径的脱敏形式。

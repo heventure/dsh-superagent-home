@@ -55,3 +55,6 @@ v4-S2-2	enabled	S2	complete	trigger	true	1	true	0	1145+2100	hit
 v4-T05b	enabled	T05	complete	trigger	true	1	true	0	809+1285	hit
 v4-T06b	enabled	T06	complete	trigger	true	1	true	0	1807+1244	hit
 v4-T12	enabled	T12	complete	trigger	true	1	true	1	0+93	hit
+v4-T12c	enabled	T12	complete	trigger	true	1	true	3	1798+2026	hit
+v4-N06c	enabled	N06	complete	no_trigger	true	0	true	0	632+478	correct-skip
+v4-N13c	enabled	N13	complete	no_trigger	true	0	true	15	1064+1015	correct-skip

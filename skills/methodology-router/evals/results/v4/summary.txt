@@ -1,6 +1,6 @@
-all: should-trigger 32/34; should-skip 16/16; inconclusive 0
-excluding runs that read eval materials: should-trigger 30/32; should-skip 14/14; inconclusive 0
-zh: should-trigger 20/22; should-skip 9/9; inconclusive 0
-en: should-trigger 12/12; should-skip 7/7; inconclusive 0
+all: should-trigger 33/35; should-skip 18/18; inconclusive 0
+excluding runs that read eval materials: should-trigger 30/32; should-skip 15/15; inconclusive 0
+zh: should-trigger 20/22; should-skip 10/10; inconclusive 0
+en: should-trigger 13/13; should-skip 8/8; inconclusive 0
 prompt_mismatch: none
-read_eval_materials: v4-T02b, v4-N06, v4-N13, v4-T12
+read_eval_materials: v4-T02b, v4-N06, v4-N13, v4-T12, v4-T12c, v4-N13c
